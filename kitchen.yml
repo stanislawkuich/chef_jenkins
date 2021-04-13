@@ -1,0 +1,29 @@
+---
+driver:
+  name: dokken
+  chef_version: latest
+
+transport:
+  name: dokken
+
+provisioner:
+  name: dokken
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: centos/8
+    driver:
+      image: dokken/centos-8
+  - name: fedora/33
+    driver:
+      image: dokken/fedora-33
+
+suites:
+  - name: default
+    run_list:
+      - recipe[chef_jenkins::default]
+    verifier:
+      inspec_tests:
+        - test/integration/default
